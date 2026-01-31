@@ -1,118 +1,131 @@
+/* ===============================
+   THIẾT LẬP CHUNG
+================================ */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1.6;
+  color: #2c2c2c;
 }
 
-.background-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  filter: blur(6px) brightness(0.85);
-}
-
-.index-page .background-overlay {
-  background: url("assets/bg-index.png") center/cover no-repeat;
-}
-
-.detail-page .background-overlay {
-  background: url("assets/bg-detail.png") center/cover no-repeat;
-}
-
+/* nội dung luôn nổi trên nền */
 .container {
+  position: relative;
+  z-index: 2;
   max-width: 1200px;
   margin: auto;
-  padding: 30px;
+  padding: 32px 24px;
 }
 
+/* ===============================
+   ẢNH NỀN TRANG CHỌN SỰ KIỆN
+================================ */
+.index-page {
+  position: relative;
+  min-height: 100vh;
+}
+
+.index-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("assets/bg-index.png") center / cover no-repeat;
+  filter: blur(5px) brightness(0.85);
+  z-index: -2;
+}
+
+.index-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 245, 220, 0.45);
+  z-index: -1;
+}
+
+/* ===============================
+   ẢNH NỀN TRANG CHI TIẾT
+================================ */
+.detail-page {
+  position: relative;
+  min-height: 100vh;
+}
+
+.detail-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("assets/bg-detail.png") center / cover no-repeat;
+  filter: blur(6px) brightness(0.8);
+  z-index: -2;
+}
+
+.detail-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.4);
+  z-index: -1;
+}
+
+/* ===============================
+   TIÊU ĐỀ – TEXT
+================================ */
 h1 {
   text-align: center;
   color: #9b1c1c;
+  margin-bottom: 10px;
 }
 
 .subtitle {
   text-align: center;
-  margin-bottom: 30px;
-}
-
-.event-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.event-card {
-  background: rgba(255,255,255,0.9);
-  padding: 20px;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.event-card:hover {
-  transform: scale(1.05);
+  font-size: 16px;
+  color: #5a1a1a;
+  margin-bottom: 40px;
 }
 
 .period {
   text-align: center;
   font-style: italic;
+  color: #7a3b00;
+  margin-bottom: 30px;
 }
 
+/* ===============================
+   TRANG CHỌN SỰ KIỆN
+================================ */
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.event-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+  border-left: 6px solid #c0392b;
+}
+
+.event-card h3 {
+  margin-top: 0;
+  color: #8e1b1b;
+}
+
+.event-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.18);
+}
+
+/* ===============================
+   SƠ ĐỒ NHÁNH (DETAIL)
+================================ */
 .tree {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-}
-
-.branch {
-  background: rgba(255,255,255,0.92);
-  padding: 20px;
-  border-radius: 16px;
-}
-
-.branch.center {
-  background: #fff2cc;
-  border: 2px solid #c0392b;
-}
-
-.box {
-  background: #ffffff;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-left: 5px solid #e67e22;
-  border-radius: 8px;
-}
-
-.analysis {
-  border-left-color: #8e44ad;
-}
-
-.main-event {
-  background: #ffeaa7;
-  padding: 20px;
-  border-radius: 12px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.toggle-btn {
-  width: 100%;
-  padding: 12px;
-  background: #c0392b;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-bottom: 15px;
-}
-
-.toggle-btn:hover {
-  background: #a93226;
-}
-
-.hidden {
-  display: none;
-}
-
-ul {
-  padding-left: 18px;
-}
