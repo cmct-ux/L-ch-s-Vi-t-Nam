@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Lịch sử Việt Nam</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="index-page">
+
+<div class="background-overlay"></div>
+
+<div class="container">
+  <h1>Dòng chảy lịch sử Việt Nam</h1>
+  <p class="subtitle">
+    Khám phá nguyên nhân – sự kiện chính – hệ quả của các sự kiện lịch sử tiêu biểu
+  </p>
+
+  <div class="event-list" id="eventList"></div>
+</div>
+
+<script src="data.js"></script>
+<script>
+  const list = document.getElementById("eventList");
+
+  historicalEvents.forEach(event => {
+    const card = document.createElement("div");
+    card.className = "event-card";
+    card.innerHTML = `
+      <h3>${event.title}</h3>
+      <p>${event.period}</p>
+    `;
+    card.onclick = () => {
+      window.location.href = "detail.html?id=" + event.id;
+    };
+    list.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
