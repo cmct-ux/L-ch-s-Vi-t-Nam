@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết sự kiện</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="detail-page">
+
+<div class="background-overlay"></div>
+
+<div class="container">
+  <h1 id="event-title"></h1>
+  <p class="period" id="event-period"></p>
+
+  <div class="tree">
+
+    <!-- NGUYÊN NHÂN -->
+    <div class="branch">
+      <h2>Nguyên nhân</h2>
+
+      <div class="box">
+        <h3>Nguyên nhân chính</h3>
+        <ul id="cause-main"></ul>
+      </div>
+
+      <div class="box">
+        <h3>Nguyên nhân phụ</h3>
+        <ul id="cause-secondary"></ul>
+      </div>
+
+      <div class="box">
+        <h3>Điều kiện</h3>
+        <ul id="cause-conditions"></ul>
+      </div>
+    </div>
+
+    <!-- SỰ KIỆN CHÍNH -->
+    <div class="branch center">
+      <h2>Sự kiện chính</h2>
+      <div class="main-event" id="main-event"></div>
+    </div>
+
+    <!-- HỆ QUẢ -->
+    <div class="branch">
+      <h2>Hệ quả</h2>
+
+      <div class="box">
+        <h3>Kết quả chính</h3>
+        <ul id="result-summary"></ul>
+      </div>
+
+      <button class="toggle-btn" onclick="toggleAnalysis()">
+        📌 Phân tích chi tiết hệ quả
+      </button>
+
+      <div class="box analysis hidden" id="analysis-box">
+        <h3>Phân tích chi tiết hệ quả</h3>
+        <ul id="result-analysis"></ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = Number(params.get("id"));
+  const event = historicalEvents.find(e => e.id === id);
+
+  function fillList(id, data) {
+    const ul = document.getElementById(id);
+    ul.innerHTML = "";
+    data.forEach(text => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      ul.appendChild(li);
+    });
+  }
+
+  function toggleAnalysis() {
+    document.getElementById("analysis-box").classList.toggle("hidden");
+  }
+
+  if (event) {
+    document.getElementById("event-title").textContent = event.title;
+    document.getElementById("event-period").textContent = event.period;
+
+    fillList("cause-main", event.causes.main);
+    fillList("cause-secondary", event.causes.secondary);
+    fillList("cause-conditions", event.causes.conditions);
+
+    document.getElementById("main-event").textContent = event.mainEvent;
+
+    fillList("result-summary", event.consequences.summary);
+    fillList("result-analysis", event.consequences.detailedAnalysis);
+  }
+</script>
+
+</body>
+</html>
